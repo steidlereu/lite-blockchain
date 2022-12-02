@@ -9,12 +9,24 @@ You may obtain a copy of the License at
 
 package core
 
-import "hash"
+import (
+	"crypto"
+	"hash"
+	"time"
+)
+
+type ChainBlock interface {
+
+}
 
 type Block struct {
 	Hash         hash.Hash64
 	PreviousHash hash.Hash64
 	Payload      interface{}
-	timestamp    int64
+	timestamp    time.Time
 	nonce        int
+}
+
+func (b Block) Calculate() {
+	
 }
