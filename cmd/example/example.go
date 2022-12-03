@@ -9,11 +9,17 @@ You may obtain a copy of the License at
 
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"steidler.eu/lite-blockchain/pkg/core"
+)
 
 func main() {
 	fmt.Println("");
 	fmt.Println("Hello World");
 	fmt.Println("");
+
+	test := core.Block{}
+	test.Calculate()
 }
 

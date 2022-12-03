@@ -10,8 +10,10 @@ You may obtain a copy of the License at
 package core
 
 import (
-	"crypto"
+	"crypto/sha512"
+	"fmt"
 	"hash"
+	//"strconv"
 	"time"
 )
 
@@ -20,13 +22,27 @@ type ChainBlock interface {
 }
 
 type Block struct {
-	Hash         hash.Hash64
-	PreviousHash hash.Hash64
-	Payload      interface{}
+	Hash         hash.Hash
+	PreviousHash hash.Hash
+	Payload      string
 	timestamp    time.Time
 	nonce        int
 }
 
 func (b Block) Calculate() {
-	
+
+	sha512 := sha512.New()
+
+	if b.PreviousHash != nil {
+		sha512.Write(b.PreviousHash.Sum(nil))
+	}
+	//sha512.Write([]byte(b.timestamp.String()))
+	//sha512.Write([]byte(strconv.Itoa(b.nonce)))
+	//sha512.Write([]byte(b.Payload))
+
+	sha512.Write([]byte("Hello"))
+	sha512.Write([]byte("World"))
+
+	fmt.Printf("%x", sha512.Sum(nil))
+
 }
