@@ -9,7 +9,11 @@ You may obtain a copy of the License at
 
 package chain
 
-import "steidler.eu/lite-blockchain/pkg/block"
+import (
+	"fmt"
+
+	"steidler.eu/lite-blockchain/pkg/block"
+)
 
 
 type Chain struct {
@@ -39,4 +43,15 @@ func (chain *Chain) Add(payload string, raise int) {
 		chain.BlockChain = append(chain.BlockChain, *tmpBlock)
 	}
 
+}
+
+func (chain *Chain) Valid() bool {
+
+	isValid := true
+
+	for i, c := range chain.BlockChain {
+        fmt.Println(i,c)
+    }
+
+	return isValid
 }

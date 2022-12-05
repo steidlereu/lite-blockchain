@@ -36,9 +36,11 @@ func main() {
 	exampleChain.Add(`{"name":"John", "age":30, "car":null}`, 4)
 	exampleChain.Add(`{"name":"John", "age":30, "car":null}`, 4)
 
-	for i, c := range exampleChain.BlockChain {
-        fmt.Println(i, c)
+	for _, c := range exampleChain.BlockChain {
+        fmt.Println(c)
     }
+
+	exampleChain.Valid()
 
 	//fmt.Println(exampleChain);
 }

@@ -13,6 +13,7 @@ import (
 	"crypto/sha512"
 	"encoding/hex"
 	"encoding/json"
+	"fmt"
 	"hash"
 	"strconv"
 	"strings"
@@ -82,4 +83,17 @@ func (block *Block) Valid() bool {
 	complexityZero := strings.Repeat("0", block.Complexity)
 
 	return hex.EncodeToString(hashResult)[0:block.Complexity] == complexityZero
+}
+
+func (block *Block) HashToString(h hash.Hash) string {
+	if h == nil {
+		return "none"
+	}
+
+	hashResult := h.Sum(nil)
+	return hex.EncodeToString(hashResult)
+}
+
+func (block Block) String() string {
+	return fmt.Sprintf("\nBlock\nPayload: %v\nTime: %v\nComplexity: %v\nNonce: %v\nPrev. Hash: %v\nCurrent Hash: %v", block.Payload, block.Timestamp.String(), block.Complexity, block.Nonce, block.HashToString(block.PreviousHash), block.HashToString(block.Hash))
 }
