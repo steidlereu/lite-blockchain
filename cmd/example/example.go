@@ -11,7 +11,7 @@ package main
 
 import (
 	"fmt"
-	"steidler.eu/lite-blockchain/pkg/core"
+	"steidler.eu/lite-blockchain/pkg/block"
 )
 
 func main() {
@@ -19,7 +19,12 @@ func main() {
 	fmt.Println("Hello World");
 	fmt.Println("");
 
-	test := core.Block{}
-	test.Calculate()
+	exampleBlock := block.First(`{"name":"John", "age":30, "car":null}`, 4)
+	exampleBlock.Mine()
+	fmt.Println(exampleBlock.Valid());
+
+	exampleBlock2 := block.First(`{"name":"John", "age":30, "car":null}`, 4)
+	fmt.Println(exampleBlock2.Valid());
+	fmt.Println(exampleBlock2.Valid());
 }
 
