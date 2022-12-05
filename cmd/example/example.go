@@ -11,7 +11,9 @@ package main
 
 import (
 	"fmt"
+
 	"steidler.eu/lite-blockchain/pkg/block"
+	"steidler.eu/lite-blockchain/pkg/chain"
 )
 
 func main() {
@@ -19,12 +21,25 @@ func main() {
 	fmt.Println("Hello World");
 	fmt.Println("");
 
-	exampleBlock := block.First(`{"name":"John", "age":30, "car":null}`, 4)
+	exampleBlock := block.Init(`{"name":"John", "age":30, "car":null}`, 4)
 	exampleBlock.Mine()
 	fmt.Println(exampleBlock.Valid());
 
-	exampleBlock2 := block.First(`{"name":"John", "age":30, "car":null}`, 4)
+	exampleBlock2 := block.Init(`{"name":"John", "age":30, "car":null}`, 4)
 	fmt.Println(exampleBlock2.Valid());
-	fmt.Println(exampleBlock2.Valid());
+
+	//exampleBlock3 := block.Init("Blabla", 4)
+	//fmt.Println(exampleBlock3.Valid());
+
+	exampleChain := chain.New()
+	exampleChain.Add(`{"name":"John", "age":30, "car":null}`, 4)
+	exampleChain.Add(`{"name":"John", "age":30, "car":null}`, 4)
+	exampleChain.Add(`{"name":"John", "age":30, "car":null}`, 4)
+
+	for i, c := range exampleChain.BlockChain {
+        fmt.Println(i, c)
+    }
+
+	//fmt.Println(exampleChain);
 }
 

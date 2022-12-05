@@ -12,6 +12,7 @@ package block
 import (
 	"crypto/sha512"
 	"encoding/hex"
+	"encoding/json"
 	"hash"
 	"strconv"
 	"strings"
@@ -27,7 +28,12 @@ type Block struct {
 	Complexity   int
 }
 
-func First(payload string, complexity int) *Block {
+func Init(payload string, complexity int) *Block {
+
+	if !json.Valid([]byte(payload)) {
+		panic("Block payload is not a valid json")
+	}
+
 	block := Block{}
 	block.Timestamp = time.Now()
 	block.Nonce = 0
@@ -38,7 +44,7 @@ func First(payload string, complexity int) *Block {
 }
 
 func New(payload string, complexity int, previousHash hash.Hash) *Block {
-	block := First(payload, complexity)
+	block := Init(payload, complexity)
 	block.PreviousHash = previousHash
 
 	return block
